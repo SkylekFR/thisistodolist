@@ -1,38 +1,59 @@
 package fr.skylek.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     private Button btAddTask;
+
     private ListTask listTask;
-    private ArrayAdapter<Task> adapter;
+    private TaskAdapter taskAdapter;
+    private DialogAddTask dialogAddTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.init();
         this.listeners();
-        listView.setAdapter(adapter);
+        listView.setAdapter(taskAdapter);
+
+        Button popupBtAddTask = dialogAddTask.findViewById(R.id.popup_btaddTask);
+        Button popupBtCancel = dialogAddTask.findViewById(R.id.pop_btCancel);
+        popupBtAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText descEditText = dialogAddTask.findViewById(R.id.desc_editText);
+                EditText titleEditText = dialogAddTask.findViewById(R.id.title_editText);
+                listTask.getListTasks().add(new Task(titleEditText.getText().toString(), descEditText.getText().toString()));
+                taskAdapter.notifyDataSetChanged();
+                dialogAddTask.dismiss();
+            }
+        });
+        popupBtCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogAddTask.dismiss();
+            }
+        });
+
     }
 
 
 
 
     void init(){
-        listView = (ListView) findViewById(R.id.task_list);
-        btAddTask = (Button) findViewById(R.id.btAddTask);
+        listView = findViewById(R.id.task_list);
+        btAddTask = findViewById(R.id.btAddTask);
         listTask = new ListTask();
         listTask.getListTasks().add(new Task("No tasks defined", "This is the default task."));
-        adapter = new ArrayAdapter<Task>(this, android.R.layout.simple_list_item_1, listTask.getListTasks().get());
+        taskAdapter = new TaskAdapter(this, listTask.getListTasks());
+        dialogAddTask = new DialogAddTask(this);
 
     }
     void listeners(){
@@ -41,13 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(listTask.getListTasks().get(0).getName() == "No tasks defined"){
-            listTask.getListTasks().remove(0);
-            listTask.getListTasks().add(new Task("MyFirstTask", "His descritpion"));
-            adapter.notifyDataSetChanged();
-        }else{
-            listTask.getListTasks().add(new Task("MyFirstTask", "His descritpion"));
-            adapter.notifyDataSetChanged();
-        }
+        dialogAddTask.show();
+
     }
 }
