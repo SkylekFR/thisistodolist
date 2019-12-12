@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView = findViewById(R.id.task_list);
         btAddTask = findViewById(R.id.btAddTask);
         listTask = new ListTask();
-        listTask.getListTasks().add(new Task("No tasks defined", "This is the default task."));
         taskAdapter = new TaskAdapter(this, listTask.getListTasks());
         dialogAddTask = new DialogAddTask(this);
 
