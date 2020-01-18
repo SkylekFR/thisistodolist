@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Emilien CHAMPION - ToDoList</string>
+    <string name="title_activity_detailed_task">DetailedTaskActivity</string>
 </resources>

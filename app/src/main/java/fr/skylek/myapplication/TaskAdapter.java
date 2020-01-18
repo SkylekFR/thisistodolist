@@ -24,10 +24,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
         TweetViewHolder viewHolder = (TweetViewHolder) convertView.getTag();
-        if (viewHolder == null) {
+        if (null == viewHolder) {
             viewHolder = new TweetViewHolder();
             viewHolder.title = convertView.findViewById(R.id.row_textView);
-            viewHolder.checkBox = convertView.findViewById(R.id.row_checkBox);
+            viewHolder.desc = convertView.findViewById(R.id.row_textView1);
+            //viewHolder.checkBox = convertView.findViewById(R.id.row_checkBox);
 
             convertView.setTag(viewHolder);
         }
@@ -37,14 +38,18 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         //il ne reste plus qu'à remplir notre vue
         viewHolder.title.setText(task.getName());
+        viewHolder.desc.setText(task.getDescription());
 
 
         return convertView;
     }
 
+
     private class TweetViewHolder {
         public TextView title;
-        public CheckBox checkBox;
+        public TextView desc;
 
     }
+
+
 }
