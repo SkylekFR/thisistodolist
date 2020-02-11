@@ -3,7 +3,15 @@ package fr.skylek.myapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Task")
 public class Task implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int idTask;
     private String name;
     private String description;
 
@@ -45,6 +53,14 @@ public class Task implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getIdTask() {
+        return idTask;
+    }
+
+    public void setIdTask(int idTask) {
+        this.idTask = idTask;
     }
 
     @Override

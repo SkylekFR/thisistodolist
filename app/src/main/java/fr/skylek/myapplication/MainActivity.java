@@ -1,15 +1,12 @@
 package fr.skylek.myapplication;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 EditText descEditText = dialogAddTask.findViewById(R.id.desc_editText);
                 EditText titleEditText = dialogAddTask.findViewById(R.id.title_editText);
+
                 listTask.getListTasks().add(new Task(titleEditText.getText().toString(), descEditText.getText().toString()));
 
                 taskAdapter.notifyDataSetChanged();
